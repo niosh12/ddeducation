@@ -5,11 +5,7 @@ import { auth, db } from '../../firebase';
 // FIX: Import doc and getDoc to read from Firestore
 import { doc, getDoc } from 'firebase/firestore';
 
-interface AdminAuthFormProps {
-    closeModal: () => void;
-}
-
-const AdminAuthForm: React.FC<AdminAuthFormProps> = ({ closeModal }) => {
+const AdminAuthForm: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -26,7 +22,7 @@ const AdminAuthForm: React.FC<AdminAuthFormProps> = ({ closeModal }) => {
 
             // Allow the hardcoded super admin to log in directly
             if (user.email === 'ddeducation.in@gmail.com') {
-                closeModal();
+                // On success, AuthContext will update and the router in App.tsx will show the dashboard.
             } else {
                 // For other users, check for admin role in Firestore.
                 const roleDocRef = doc(db, 'roles', user.uid);
@@ -36,7 +32,7 @@ const AdminAuthForm: React.FC<AdminAuthFormProps> = ({ closeModal }) => {
                     await auth.signOut();
                     setError("Access Denied. This login is for administrators only.");
                 } else {
-                    closeModal(); // Success, close modal, AuthContext will take over
+                    // Success, AuthContext will take over
                 }
             }
         } catch (err: any) {
