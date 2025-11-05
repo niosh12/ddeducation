@@ -1,0 +1,5 @@
+{
+  "name": "DD EDUCATION – NIOS TMA UPLOAD PORTAL",
+  "description": "A portal for NIOS students to register, submit proof of payment for TMA uploads, and track the status of their submission.",
+  "requestFramePermissions": []
+}
